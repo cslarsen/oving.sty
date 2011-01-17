@@ -1,10 +1,13 @@
 oving.sty
 =========
-oving.sty er et enkelt LaTeX stilark for innlevering av øvinger.
+oving.sty er et enkelt LaTeX stilark for innlevering av øvinger i teknologiske fag.
 
-Versjon: 2011-01-17
+Rettigheter
+-----------
+Versjon 2011-01-17
 
 Laget av Christian Stigen Larsen, http://csl.sublevel3.org
+
 Publisert som allemannseie, altså public domain.
 
 Introduksjon

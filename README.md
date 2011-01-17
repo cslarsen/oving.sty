@@ -16,8 +16,8 @@ Dette er en enkel pakke for LaTeX for å skrive øvinger.
 
 Pakken (eller "stilarket") passer ypperlig for innleveringer av øvinger i matematikk, fysikk og informatikk.
 
-Under er det gitt en fullstendig LaTeX-fil med beskrivelser
-av alle kommandoer og bruk.  Forklaringen står som kommentar.
+På Github-siden er det gitt en fullstendig LaTeX-fil med beskrivelser
+av alle kommandoer og bruk.  Forklaring av kommandoer står som kommentarer.
 
 For å kjøre eksempelet må du ha en del andre pakker som inputenc
 og graphicx.  Dersom du ikke har inputen kan du kommentere ut denne,
@@ -30,8 +30,8 @@ For å produsere en PDF-utave av eksempelet kjører du for eksempel:
     $ latex filnavn.tex # andre gang pga referanser
     $ dvipdf filnavn.dvi
 
-Det kan være du kan kjøre ``pdflatex filnavn.tex'' direkte også.
+Det kan være du kan kjøre `pdflatex eksempel.tex` direkte også.
 
 Eksempeldokument
 ----------------
-Se dokumentet eksempel.tex for forklaring på alle kommandoer og resultatfilen eksempel.pdf for hvordan det vil se ut.
+Se dokumentet `eksempel.tex` for forklaring på alle kommandoer og resultatfilen `eksempel.pdf` for hvordan det vil se ut.

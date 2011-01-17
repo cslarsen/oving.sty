@@ -1,0 +1,166 @@
+% oving.sty -- en enkel LaTeX pakke for øvinger
+%
+% Versjon: 2011-01-17
+%
+% Av Christian Stigen Larsen, http://csl.sublevel3.org
+% Publisert som allemannseie, altså public domain.
+%
+% INTRODUKSJON
+% Dette er en enkel pakke for LaTeX for å skrive øvinger.
+%
+% INSTRUKSJONER
+% Under er det gitt en fullstendig LaTeX-fil med beskrivelser
+% av alle kommandoer og bruk.  Forklaringen står som kommentar.
+%
+% For å kjøre eksempelet må du ha en del andre pakker som inputenc
+% og graphicx.  Dersom du ikke har inputen kan du kommentere ut denne,
+% og dersom du ikke har graphicx kan du ikke bruke \figur (og du må
+% kommentere ut definisjonen i denne .sty-fila).
+%
+% For å produsere en PDF-utave av eksempelet kjører du for eksempel:
+%
+%   $ latex filnavn.tex
+%   $ latex filnavn.tex # andre gang pga referanser
+%   $ dvipdf filnavn.dvi
+%
+% Det kan være du kan kjøre ``pdflatex filnavn.tex'' direkte også.
+%
+% EKSEMPEL OG FORKLARING
+%
+%   \documentclass[a4paper,twocolumn]{article}
+%
+%   \usepackage[utf8]{inputenc}
+%   \usepackage{oving}
+%
+%   % Definer en del felter som brukes på tittelsiden
+%   %
+%   \title{Feks navn på faget}
+%   \subtitle{Feks "Øving 1" her}
+%   \author{Ditt navn}
+%   \date{Feks dato for innlevering}
+%
+%   % Noen fag tillater gamle utgaver av læreboka,
+%   % og hvis det brukes oppgaver herfra er de ofte
+%   % litt forskjellig.  Skriv derfor i innleveringen
+%   % hvilken utgave av boka du har brukt.
+%   %
+%   \textbook{Lærebokas tittel og utgave}
+%
+%   \begin{document}
+%
+%     % Lag titteltekst, men ikke på egen side
+%     \maketitle
+%
+%     % Skriver "Oppgave 1" i sans serif-font.
+%     % Prefikset "Oppgave" kan du omdefinere ved
+%     % \renewcommand{\oppgavename}{Nytt prefiks her}
+%     %
+%     \oppgave{1}
+%
+%     Gitt en leder med elektrisk strømning
+%
+%     \begin{formel}{oppg1-formel}
+%       i_{ab} = -5 \, \textrm{ampere} = -5 \, \textrm{C/s}
+%     \end{formel}
+%
+%     med referanseretning fra $a$ til $b$. (...)
+%
+%     Her kan vi se at (...)
+%
+%     % Skriver "(a)" i fet, sans serif-font
+%     \deloppgave{a}
+%
+%     For å finne total ladning som passerer i tre sekunder tar man
+%     formelen \ref{oppg1-formel} og ganger med antall sekunder. (...)
+%
+%     \deloppgave{b}
+%     Gitt figur \ref{oppg1b-figur} kan vi regne ut (...)
+%
+%       % Viser filnavn.eps (eller andre grafikkformat) \begin{figure},
+%       % men med norsk prefiks på teksten og med referanse "oppg1b-figur".
+%       %
+%       \figur {filnavn.eps}
+%              {oppg1b-figur}
+%              {Tverrsnitt av leder med strømning $i_{ab}$}
+%
+%  \end{document}
+
+\ProvidesPackage{oving}
+\usepackage{graphicx}
+
+%%
+%% Heretter kommenterer jeg bruken av stilarket i engelsk.
+%%
+
+% Paragraph style:
+%
+%   - Do not indent
+%   - Separate with two lines
+%
+\setlength{\parindent}{0pt} 
+\setlength{\parskip}{2ex}
+
+% Renew \figurename to use Norwegian "Figur"
+% as caption prefix
+%
+\renewcommand{\figurename}{Figur}
+
+% Define \oppgave to be a \section without numbering.
+% Set prefix with \oppgavename
+%
+\def \oppgavename {Oppgave}
+\newcommand{\oppgave}[1]{
+  \section*{\textsf{\normalsize{\oppgavename\ {}#1}}}}
+
+% Define \deloppgave to be a "(number)" paragraph
+\newcommand{\deloppgave}[1]{
+  \paragraph{(#1)}}
+
+% Define \subtitle{...}, used in title
+\def \@subtitle {}
+\newcommand{\subtitle}[1]{
+  \renewcommand{\@subtitle}{#1}}
+
+% Define \textbook{...}, used in title
+\def \textbookname {Lærebok:\ {}}
+\def \@textbook {}
+\newcommand{\textbook}[1]{
+  \renewcommand{\@textbook}{\textbookname#1}}
+
+% Define \figur taking three parameters:
+%
+%   - graphics file to display
+%   - label   (TODO: make optional)
+%   - caption (TODO: make optional)
+%
+\newcommand{\figur}[3]{
+  \begin{figure}
+    \includegraphics[width=\columnwidth]{#1}
+    \caption{#3}
+    \label{#2}
+  \end{figure}}
+
+\newenvironment{formel}[1]
+  {\begin{equation}
+     \label{#1}}
+  {\end{equation}}
+
+% Renew \maketitle to use a new style which
+% requires setting:
+%
+%   - \title    (feks "BIE220 Navn på fag")
+%   - \subtitle (feks "Øving 1")
+%   - \author
+%   - \date
+%   - \textbook (feks "\textit{Boknavn}, 3. utgave")
+%
+\renewcommand{\maketitle}{
+  \flushleft{\Large{\textsf{\@title}}}
+
+  \flushleft{\normalsize{\textsf{\@subtitle\\
+    \@author\\
+    \@date\\
+    \ {}\\
+    \@textbook}}}
+
+  \hrulefill}
